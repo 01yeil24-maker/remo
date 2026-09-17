@@ -1,0 +1,46 @@
+// REMO 팀 홈페이지 데이터베이스 스키마 (Neon Postgres)
+// 개발 안내서의 "시스템 설계" 단계에서 정의한 3개 테이블입니다.
+// 사용법: 개발 안내서의 "개발 환경 구축 절차"를 따라 DATABASE_URL을 설정한 뒤
+//   npx prisma generate
+//   npx prisma db push
+//   npx prisma db seed   (prisma/seed.ts 참고)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  role      String
+  bio       String
+  photoUrl  String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Project {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         String
+  category      String
+  description   String
+  coverImageUrl String?
+  members       String[]
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+}
+
+model GalleryImage {
+  id        String   @id @default(cuid())
+  imageUrl  String
+  caption   String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
