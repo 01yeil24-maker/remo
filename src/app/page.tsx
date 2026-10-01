@@ -12,39 +12,41 @@ const letters = [
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex items-center justify-between px-6 py-6 sm:px-10">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6 sm:px-10">
         <Image src="/logo.png" alt="REMO" width={80} height={80} className="h-7 w-auto sm:h-8" priority />
-        <Link
-          href="/gallery"
-          className="border-b border-brand-line pb-1 text-sm text-brand-ink transition-colors hover:border-brand-orange hover:text-brand-orange sm:text-base"
-        >
-          Gallery
-        </Link>
+        <nav className="flex items-center gap-5 text-[14px] font-medium text-brand-ink/70 sm:gap-6 sm:text-[15px]">
+          <Link href="/gallery" className="transition-colors hover:text-brand-orange">
+            Gallery
+          </Link>
+          <Link href="/board" className="transition-colors hover:text-brand-orange">
+            Board
+          </Link>
+        </nav>
       </div>
 
-      <main className="flex flex-1 flex-col items-center justify-center gap-8 px-6 py-12 text-center">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:flex sm:gap-10 md:gap-16">
+      <main className="flex flex-1 flex-col items-center justify-center gap-10 px-6 py-16 text-center sm:gap-12">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:flex sm:gap-x-5 md:gap-x-7">
           {letters.map((letter) => (
             <Link
               key={letter.char}
               href={letter.href}
-              className="group flex flex-col items-center gap-3"
+              className="group flex flex-col items-center gap-2.5 sm:gap-3"
             >
-              <span className="font-display text-7xl leading-none text-brand-orange transition-transform duration-150 group-hover:-translate-y-1 sm:text-8xl md:text-9xl">
+              <span className="text-[84px] font-extrabold leading-none tracking-[-0.05em] text-brand-orange transition-transform duration-200 group-hover:-translate-y-1 sm:text-[112px] md:text-[136px]">
                 {letter.char}
               </span>
-              <span className="text-xs uppercase tracking-widest text-brand-ink/70 sm:text-sm">
+              <span className="text-[13px] font-medium text-brand-ink/55 sm:text-[15px]">
                 {letter.label}
               </span>
             </Link>
           ))}
         </div>
-        <p className="font-body text-sm text-brand-ink/70 sm:text-base">
-          &ldquo;{philosophy.tagline}&rdquo;
+        <p className="text-[15px] font-medium text-brand-ink/60 sm:text-[17px]">
+          {philosophy.tagline}
         </p>
       </main>
 
-      <footer className="px-6 py-6 text-center text-xs text-brand-ink/60 sm:text-sm">
+      <footer className="px-6 py-8 text-center text-[13px] text-brand-ink/40">
         © 2026 REMO
       </footer>
     </div>

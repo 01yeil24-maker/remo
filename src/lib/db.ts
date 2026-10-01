@@ -1,24 +1,31 @@
-// Neon(Postgres) 연결용 Prisma client 싱글턴입니다.
+// Neon(Vercel Postgres) 연결입니다.
 //
-// 아직 이 파일은 사용되지 않습니다 (지금은 lib/data.ts의 정적 데이터로 화면을 채웁니다).
-// DB 연동을 시작하려면:
-//   1. 개발 안내서의 "개발 환경 구축 절차"대로 DATABASE_URL을 설정하고
-//      npx prisma generate 를 실행하세요.
-//   2. tsconfig.json의 "exclude" 배열에서 "src/lib/db.ts" 항목을 제거하세요.
-//   3. 각 페이지에서 lib/data.ts 대신 아래 client로 Neon을 조회하도록 바꾸세요.
+// Vercel 프로젝트에 Neon을 연결하면 DATABASE_URL 환경변수가 자동으로 들어옵니다.
+// 로컬에서 테스트하려면 `vercel env pull` 로 .env.local에 받아오세요.
+//
+// @neondatabase/serverless 드라이버는 HTTP로 질의하기 때문에 Vercel의
+// 서버리스 환경에서 커넥션 풀 걱정 없이 그대로 동작합니다.
 
-import { PrismaClient } from "@prisma/client";
+import { neon } from "@neondatabase/serverless";
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
+/** 이 프로젝트에서 쓰는 최소한의 질의 인터페이스 (테스트에서 교체 가능) */
+export type SqlExecutor = {
+  query: (text: string, params?: unknown[]) => Promise<Record<string, unknown>[]>;
 };
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
-  });
+/** DATABASE_URL이 설정되어 있는지 */
+export function isDbConfigured(): boolean {
+  return Boolean(process.env.DATABASE_URL);
+}
 
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma;
+/** DB가 연결되어 있으면 질의 함수를, 아니면 null을 돌려줍니다. */
+export function getSql(): SqlExecutor | null {
+  const url = process.env.DATABASE_URL;
+  if (!url) return null;
+
+  const sql = neon(url);
+  return {
+    query: (text, params = []) =>
+      sql.query(text, params as unknown[]) as Promise<Record<string, unknown>[]>,
+  };
 }

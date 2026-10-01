@@ -5,8 +5,8 @@
   --brand-orange-dark: #d5640a;
   --brand-yellow: #fce896;
   --brand-cream: #fffaf0;
-  --brand-ink: #2b1b0e;
-  --brand-line: #eadcae;
+  --brand-ink: #241a12;
+  --brand-line: #e8dcb2;
 }
 
 @theme inline {
@@ -16,11 +16,33 @@
   --color-brand-cream: var(--brand-cream);
   --color-brand-ink: var(--brand-ink);
   --color-brand-line: var(--brand-line);
-  --font-display: "Jua", sans-serif;
-  --font-body: "Noto Sans KR", sans-serif;
+
+  /* Apple 기기: SF Pro + Apple SD Gothic Neo / 그 외: Pretendard */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard,
+    system-ui, "Segoe UI", "Malgun Gothic", sans-serif;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
 }
 
 body {
   background: var(--brand-yellow);
   color: var(--brand-ink);
+  font-family: var(--font-sans);
+  /* 한글은 어절 단위로 줄바꿈해야 읽기 좋습니다. */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.03em;
+  line-height: 1.25;
 }

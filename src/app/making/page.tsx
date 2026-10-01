@@ -5,28 +5,25 @@ export default function MakingPage() {
   return (
     <div className="flex flex-1 flex-col">
       <SiteHeader active="Making" />
-      <main className="flex flex-1 flex-col gap-10 px-6 py-12 sm:px-10 sm:py-16">
-        <div>
-          <p className="font-display text-sm uppercase tracking-widest text-brand-orange">
-            M — Making
-          </p>
-          <h1 className="mt-3 font-display text-4xl text-brand-ink sm:text-5xl">
-            우리가 만든 것들
-          </h1>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-14 sm:px-10 sm:py-20">
+        <p className="text-[13px] font-semibold tracking-[0.06em] text-brand-orange">M — MAKING</p>
+        <h1 className="mt-4 text-[30px] font-bold sm:text-[40px]">우리가 만든 것들</h1>
+
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {projects.map((project) => (
             <div
               key={project.slug}
-              className="flex flex-col gap-3 rounded-lg border border-brand-line bg-white/60 p-5"
+              className="flex flex-col rounded-2xl border border-brand-line bg-white/70 p-6"
             >
-              <span className="w-fit rounded-full bg-brand-orange/10 px-3 py-1 text-xs font-medium uppercase tracking-wide text-brand-orange">
+              <span className="w-fit rounded-full bg-brand-orange/10 px-2.5 py-1 text-[12px] font-semibold text-brand-orange">
                 {project.category}
               </span>
-              <h2 className="font-display text-2xl text-brand-ink">{project.title}</h2>
-              <p className="text-sm leading-relaxed text-brand-ink/75">{project.description}</p>
-              <p className="mt-auto pt-3 text-xs text-brand-ink/60">
-                팀원 · {project.members.join(", ")}
+              <h2 className="mt-4 text-[20px] font-bold tracking-[-0.02em]">{project.title}</h2>
+              <p className="mt-2 text-[14px] leading-[1.7] text-brand-ink/65">
+                {project.description}
+              </p>
+              <p className="mt-auto pt-5 text-[13px] text-brand-ink/45">
+                {project.members.join(" · ")}
               </p>
             </div>
           ))}

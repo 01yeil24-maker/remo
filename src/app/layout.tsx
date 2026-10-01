@@ -13,17 +13,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ko" className="h-full">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* App Router root layout applies to every route, so this is not the single-page
-            custom-font case the eslint rule below warns about. */}
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        {/* Apple 기기에서는 시스템 서체(SF Pro / Apple SD Gothic Neo)를 쓰고,
+            그 외 환경에서는 Pretendard를 내려받아 같은 인상을 유지합니다. */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap"
           rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
       </head>
-      <body className="min-h-full flex flex-col font-body bg-brand-yellow text-brand-ink antialiased">
+      <body className="min-h-full flex flex-col bg-brand-yellow text-brand-ink antialiased">
         {children}
       </body>
     </html>
