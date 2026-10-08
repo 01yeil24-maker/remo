@@ -46,3 +46,10 @@ h3 {
   letter-spacing: -0.03em;
   line-height: 1.25;
 }
+
+/* 사우나 치맥 랜딩 페이지 전용 팔레트 (어두운 배경 + 불빛 오렌지) */
+.sauna-landing {
+  --ink: #15100c;
+  --ember: #ff8a1f;
+}
+
