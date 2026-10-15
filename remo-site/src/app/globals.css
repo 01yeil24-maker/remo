@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  --brand-orange: #f2760c;
+  --brand-orange-dark: #d5640a;
+  --brand-yellow: #fce896;
+  --brand-cream: #fffaf0;
+  --brand-ink: #241a12;
+  --brand-line: #e8dcb2;
+}
+
+@theme inline {
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-orange-dark: var(--brand-orange-dark);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-line: var(--brand-line);
+
+  /* Apple 기기: SF Pro + Apple SD Gothic Neo / 그 외: Pretendard */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard,
+    system-ui, "Segoe UI", "Malgun Gothic", sans-serif;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--brand-yellow);
+  color: var(--brand-ink);
+  font-family: var(--font-sans);
+  /* 한글은 어절 단위로 줄바꿈해야 읽기 좋습니다. */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+/* 사우나 치맥 랜딩 페이지 전용 팔레트 (어두운 배경 + 불빛 오렌지) */
+.sauna-landing {
+  --ink: #15100c;
+  --ember: #ff8a1f;
+}
+
