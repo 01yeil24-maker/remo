@@ -54,6 +54,38 @@ export const SCHEMA_STATEMENTS: string[] = [
     created_at     TIMESTAMPTZ NOT NULL DEFAULT now()
   )`,
 
+  // 고객상담 챗봇이 참고하는 지식베이스
+  `CREATE TABLE IF NOT EXISTS kb_documents (
+    id         SERIAL PRIMARY KEY,
+    title      TEXT NOT NULL,
+    source     TEXT,                           -- 출처 메모 (예: NotebookLM, 운영 매뉴얼)
+    content    TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  )`,
+
+  `CREATE TABLE IF NOT EXISTS kb_chunks (
+    id          SERIAL PRIMARY KEY,
+    document_id INTEGER NOT NULL REFERENCES kb_documents(id) ON DELETE CASCADE,
+    chunk_index INTEGER NOT NULL,
+    content     TEXT NOT NULL,
+    embedding   JSONB NOT NULL,                -- 정규화된 벡터 (길이 1)
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+  )`,
+
+  // 들어온 질문과 답변 기록 (무엇을 많이 묻는지 보기 위함)
+  `CREATE TABLE IF NOT EXISTS support_messages (
+    id          SERIAL PRIMARY KEY,
+    question    TEXT NOT NULL,
+    answer      TEXT NOT NULL,
+    grounded    BOOLEAN NOT NULL DEFAULT false, -- 지식베이스에서 근거를 찾았는지
+    sources     TEXT,                           -- 참고한 문서 제목들
+    top_score   REAL,                           -- 가장 가까운 조각의 유사도 (임계값 조정용)
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+  )`,
+
+  `ALTER TABLE support_messages ADD COLUMN IF NOT EXISTS top_score REAL`,
+
+  `CREATE INDEX IF NOT EXISTS kb_chunks_doc_idx ON kb_chunks (document_id)`,
   `CREATE INDEX IF NOT EXISTS posts_created_at_idx ON posts (id DESC)`,
   `CREATE INDEX IF NOT EXISTS sessions_user_idx ON sessions (user_id)`,
   `CREATE UNIQUE INDEX IF NOT EXISTS leads_coupon_code_idx ON leads (coupon_code) WHERE coupon_code IS NOT NULL`,

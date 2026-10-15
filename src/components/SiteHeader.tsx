@@ -10,6 +10,7 @@ const navItems = [
   { href: "/our-way", label: "Our Way" },
   { href: "/gallery", label: "Gallery" },
   { href: "/board", label: "Board" },
+  { href: "/support", label: "고객상담" },
 ];
 
 export default async function SiteHeader({ active }: { active?: string }) {
@@ -58,6 +59,12 @@ export default async function SiteHeader({ active }: { active?: string }) {
                 className="border-b-2 border-transparent pb-0.5 font-medium text-brand-ink/70 transition-colors hover:text-brand-orange"
               >
                 세션 응답
+              </Link>
+              <Link
+                href="/admin/knowledge"
+                className="border-b-2 border-transparent pb-0.5 font-medium text-brand-ink/70 transition-colors hover:text-brand-orange"
+              >
+                상담 자료
               </Link>
             </>
           )}
